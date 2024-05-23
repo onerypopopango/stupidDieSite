@@ -2,7 +2,7 @@
 <html>
 <head>
 <title>Stupid Die Site</title>
-
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
 	/* Style the header */
 	header {
@@ -38,10 +38,10 @@
 	
 	/* Style the footer */
 	footer {
-      	  position: fixed;
-      	  left: 0;
-     	  bottom: 0;
-      	  width: 100%;
+      position: fixed;
+      left: 0;
+      bottom: 0;
+      width: 100%;
 	  background-color: #777;
 	  padding: 5px;
 	  text-align: center;
@@ -52,21 +52,25 @@
 	  font-size: 14px;
 	}
 	
+	@media screen and (min-width: 601px) {
+	  div.writeup {
+		font-size: 20px;
+		text-align: center;
+	  }
+	}
+	
 	/* Responsive layout - makes the menu and the content (inside the section) sit on top of each other instead of next to each other */
-	@media (max-width: 600px) {
+	@media screen and (max-width: 600px) {
 	  section {
 		-webkit-flex-direction: column;
 		flex-direction: column;
 	  }
-
-	  picture {
-		width: 500px;
-		height: 500px;
-	  }
-
-	  h1{
-		font-size: 20px;  
+	  
+	  div.writeup {
+		font-size: 50px;  
+		text-align: center;
 	  }	
+
 	}
 </style>
 </head>
@@ -77,7 +81,7 @@
 
 <section>
 	<wordline>
-		<h1 id="text">Roll The Die</h1>
+		<div class="writeup" id="text">Roll the die.</div>
 	</wordline>
 	<picture>
 		<input type="image" onclick="test()" id="dice"
