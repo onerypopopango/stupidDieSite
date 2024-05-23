@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Stupid Die Site</title>
+
+<style>
+	/* Style the header */
+	header {
+	  background-color: #666;
+	  padding: 30px;
+	  text-align: center;
+	  font-size: 35px;
+	  color: white;
+	}
+	
+	/* Container for flexboxes */
+	section {
+	  display: -webkit-flex;
+	  display: flex;
+	  flex-direction: column
+	}
+	
+	/* Style the content */
+	wordline {
+	  -webkit-flex: 8;
+	  -ms-flex: 8;
+	  flex: 8;
+      text-align: center;
+	  padding: 10px;
+	}
+	picture {
+	  -webkit-flex: 8;
+	  -ms-flex: 8;
+	  flex: 8;
+	  text-align: center;	
+	  padding: 10px;
+	}
+	
+	/* Style the footer */
+	footer {
+      position: fixed;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+	  background-color: #777;
+	  padding: 5px;
+	  text-align: center;
+	  color: white;
+	}
+	
+	p {
+	  font-size: 14px;
+	}
+	
+	/* Responsive layout - makes the menu and the content (inside the section) sit on top of each other instead of next to each other */
+	@media (max-width: 600px) {
+	  section {
+		-webkit-flex-direction: column;
+		flex-direction: column;
+	  }
+	}
+</style>
+</head>
+<body>
+
+
+<header>STUPID DIE SITE</header>
+
+<section>
+	<wordline>
+		<h1 id="text">Roll The Die</h1>
+	</wordline>
+	<picture>
+		<input type="image" onclick="test()" id="dice"
+		src="https://pngimg.com/uploads/dice/dice_PNG49.png"></input>
+	</picture>
+</section>
+
+<script>
+function test() {
+		
+	let dieValue = Math.floor(Math.random() * (6 - 1 + 1) + 1);
+	document.getElementById('text').innerHTML = "You rolled: " + dieValue;
+	
+	switch (dieValue) {
+		case 1:
+			document.getElementById("dice").src="https://upload.wikimedia.org/wikipedia/commons/4/4a/Die_face_1r.svg";
+			break;
+		case 2:
+			document.getElementById("dice").src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Die_face_2b.svg";
+			break;
+		case 3:
+			document.getElementById("dice").src="https://upload.wikimedia.org/wikipedia/commons/c/cb/Die_face_3b.svg";
+			break;
+		case 4:
+			document.getElementById("dice").src="https://upload.wikimedia.org/wikipedia/commons/8/8e/Die_face_4r.svg";
+			break;
+		case 5:
+			document.getElementById("dice").src="https://upload.wikimedia.org/wikipedia/commons/9/99/Die_face_5b.svg";
+			break;
+		case 6:
+			document.getElementById("dice").src="https://upload.wikimedia.org/wikipedia/commons/e/eb/Die_face_6b.svg";
+			break;
+	}		
+}
+</script> 
+
+<footer>
+  <p>Images 'borrowed' from pngimg.com and en.m.wikipedia.org</p>
+  <p>Site made by a bored cookie fairy...</p>
+</footer>
+
+</body>
+</html> 
