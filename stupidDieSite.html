@@ -1,127 +1,338 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Stupid Die Site</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<style>
-	/* Style the header */
-	header {
-	  background-color: #666;
-	  padding: 30px;
-	  text-align: center;
-	  font-size: 35px;
-	  color: white;
-	}
-	
-	/* Container for flexboxes */
-	section {
-	  display: -webkit-flex;
-	  display: flex;
-	  flex-direction: column
-	}
-	
-	/* Style the content */
-	wordline {
-	  -webkit-flex: 8;
-	  -ms-flex: 8;
-	  flex: 8;
-      text-align: center;
-	  padding: 10px;
-	}
-	picture {
-	  -webkit-flex: 8;
-	  -ms-flex: 8;
-	  flex: 8;
-	  text-align: center;	
-	  padding: 10px;
-	}
-	
-	/* Style the footer */
-	footer {
-      position: fixed;
-      left: 0;
-      bottom: 0;
-      width: 100%;
-	  background-color: #777;
-	  padding: 5px;
-	  text-align: center;
-	  color: white;
-	}
-	
-	p {
-	  font-size: 14px;
-	}
-	
-	@media screen and (min-width: 601px) {
-	  div.writeup {
-		font-size: 20px;
-		text-align: center;
-	  }
-	}
-	
-	/* Responsive layout - makes the menu and the content (inside the section) sit on top of each other instead of next to each other */
-	@media screen and (max-width: 600px) {
-	  section {
-		-webkit-flex-direction: column;
-		flex-direction: column;
-	  }
-	  
-	  div.writeup {
-		font-size: 50px;  
-		text-align: center;
-	  }	
-
-	}
-</style>
-</head>
-<body>
-
-
-<header>STUPID DIE SITE</header>
-
-<section>
-	<wordline>
-		<div class="writeup" id="text">Roll the die.</div>
-	</wordline>
-	<picture>
-		<input type="image" onclick="test()" id="dice"
-		src="https://pngimg.com/uploads/dice/dice_PNG49.png"></input>
-	</picture>
-</section>
-
-<script>
-function test() {
+	<title>Stupid Die Site</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<style>
+		/* Style the header */
+		header {
+		  background-color: #666;
+		  padding: 30px;
+		  text-align: center;
+		  font-size: 35px;
+		  color: white;
+		}
 		
-	let dieValue = Math.floor(Math.random() * (6 - 1 + 1) + 1);
-	document.getElementById('text').innerHTML = "You rolled: " + dieValue;
+		/* Container for flexboxes */
+		section {
+		  display: -webkit-flex;
+		  display: flex;
+		  flex-direction: column
+		}
+		
+		/* Style the content */
+		.wordline {
+		  -webkit-flex: 8;
+		  -ms-flex: 8;
+		  flex: 8;
+		  text-align: center;
+		  padding: 10px;
+		}
+		.pictureDie {
+		  -webkit-flex: 8;
+		  -ms-flex: 8;
+		  flex: 8;
+		  text-align: center;	
+		  padding: 10px;
+		  max-width: 100%;
+		}	
+		
+		img {max-width:100%;}
+		
+		button {padding: 10px;}
+		
+		/* Style the footer */
+		footer {
+		  position: fixed;
+		  left: 0;
+		  bottom: 0;
+		  width: 100%;	  
+		  text-align: center;	  
+		}
+		
+		.bottomButtons {
+		  left: 0;
+		  text-align: center;
+		  bottom: 0;
+		  padding: 5px;
+		}
+		.final {
+			background-color: #777;
+			width: 100%;
+			color: white;
+			padding: 5px;
+			text-align: center;	
+		}
+		
+		p {
+		  font-size: 14px;
+		}
+		
+		@media screen and (min-width: 601px) {
+		  div.writeup {
+			font-size: 20px;
+			text-align: center;
+		  }
+		}
+		
+		/* Responsive layout - makes the menu and the content (inside the section) sit on top of each other instead of next to each other */
+		@media screen and (max-width: 600px) {
+		  section {
+			-webkit-flex-direction: column;
+			flex-direction: column;
+		  }
+		  
+		  div.writeup {
+			font-size: 50px;  
+			text-align: center;
+		  }	
+
+		}
+		
+		/* The Modal (background) */
+		.modal {
+		  display: none; /* Hidden by default */
+		  position: fixed; /* Stay in place */
+		  z-index: 1; /* Sit on top */
+		  left: 0;
+		  top: 0;
+		  width: 100%; /* Full width */
+		  height: 100%; /* Full height */
+		  overflow: auto; /* Enable scroll if needed */
+		  background-color: rgb(0,0,0); /* Fallback color */
+		  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+		}
+
+		/* Modal Content/Box */
+		.modal-content {
+		  background-color: #fefefe;
+		  margin: 15% auto; /* 15% from the top and centered */
+		  padding: 20px;
+		  border: 1px solid #888;
+		  width: 80%; /* Could be more or less, depending on screen size */
+		}
+
+		/* The Close Button */
+		.close {
+		  color: #aaa;
+		  float: right;
+		  font-size: 28px;
+		  font-weight: bold;
+		}
+
+		.close:hover,
+		.close:focus {
+		  color: black;
+		  text-decoration: none;
+		  cursor: pointer;
+		} 
+	</style>
+</head>
+
+<body>
+	<header>STUPID DIE SITE</header>
+
+	<section>
+		<div class="wordline">
+			<div class="writeup" id="text">Roll the die.</div>
+		</div>
+		<div class="pictureDie">
+			<input type="image" onclick="roll()" id="dice"
+			src="https://pngimg.com/uploads/dice/dice_PNG49.png"></input>
+		</div>			
+	</section>
+
+	<script>
+	let dieNum = 6;
+	const records = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]; 
+
+	function roll() {	
+		if (dieNum == 6) {
+			let dieValue = Math.floor(Math.random() * (6 - 1 + 1) + 1);
+			document.getElementById('text').innerHTML = "You rolled: " + dieValue;
+			records.unshift(dieValue);
+			records.pop();
+		
+			switch (dieValue) {
+				case 1:
+					document.getElementById("dice").src="images/diceOne.svg";
+					break;
+				case 2:
+					document.getElementById("dice").src="images/diceTwo.svg";
+					break;
+				case 3:
+					document.getElementById("dice").src="images/diceThree.svg";
+					break;
+				case 4:
+					document.getElementById("dice").src="images/diceFour.svg";
+					break;
+				case 5:
+					document.getElementById("dice").src="images/diceFive.svg";
+					break;
+				case 6:
+					document.getElementById("dice").src="images/diceSix.svg";
+					break;
+			}	
+		} else if (dieNum == 12) {
+			let dieValue = Math.floor(Math.random() * (20 - 1 + 1) + 1);
+			document.getElementById('text').innerHTML = "You rolled: " + dieValue;
+			records.unshift(dieValue);
+			records.pop();
+		
+			switch (dieValue) {
+				case 1:
+					document.getElementById("dice").src="images/One.webp";
+					break;
+				case 2:
+					document.getElementById("dice").src="images/Two.webp";
+					break;
+				case 3:
+					document.getElementById("dice").src="images/Three.webp";
+					break;
+				case 4:
+					document.getElementById("dice").src="images/Four.webp";
+					break;
+				case 5:
+					document.getElementById("dice").src="images/Five.webp";
+					break;
+				case 6:
+					document.getElementById("dice").src="images/Six.webp";
+					break;
+				case 7:
+					document.getElementById("dice").src="images/Seven.webp";
+					break;
+				case 8:
+					document.getElementById("dice").src="images/Eight.webp";
+					break;
+				case 9:
+					document.getElementById("dice").src="images/Nine.webp";
+					break;
+				case 10:
+					document.getElementById("dice").src="images/Ten.webp";
+					break;
+				case 11:
+					document.getElementById("dice").src="images/Eleven.webp";
+					break;
+				case 12:
+					document.getElementById("dice").src="images/Twelve.webp";
+					break;
+				case 13:
+					document.getElementById("dice").src="images/Thirteen.webp";
+					break;
+				case 14:
+					document.getElementById("dice").src="images/Fourteen.webp";
+					break;
+				case 15:
+					document.getElementById("dice").src="images/Fifteen.webp";
+					break;
+				case 16:
+					document.getElementById("dice").src="images/Sixteen.webp";
+					break;
+				case 17:
+					document.getElementById("dice").src="images/Seventeen.webp";
+					break;
+				case 18:
+					document.getElementById("dice").src="images/Eighteen.webp";
+					break;
+				case 19:
+					document.getElementById("dice").src="images/Nineteen.webp";
+					break;
+				case 20:
+					document.getElementById("dice").src="images/Twenty.webp";
+					break;
+			}	
+		} else {
+			document.getElementById('text').innerHTML = "There seems to be an error, roll again.";
+		}
+	}
+
+	function show6() {
+		document.getElementById("dice").src="https://pngimg.com/uploads/dice/dice_PNG49.png";
+		document.getElementById('text').innerHTML = "Roll the die.";
+		dieNum = 6;
+	}
+
+	function show12() {
+		document.getElementById("dice").src="images/Twenty-Sided-Dice.svg";
+		document.getElementById('text').innerHTML = "Roll the die.";
+		dieNum = 12;
+	}
+
+	// Credit modal code
+	function showCredits() {
+		document.getElementById("creditsModal").style.display = "block";
+	}
+	function closeCredits() {
+		document.getElementById("creditsModal").style.display = "none";
+	}	
 	
-	switch (dieValue) {
-		case 1:
-			document.getElementById("dice").src="https://upload.wikimedia.org/wikipedia/commons/4/4a/Die_face_1r.svg";
-			break;
-		case 2:
-			document.getElementById("dice").src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Die_face_2b.svg";
-			break;
-		case 3:
-			document.getElementById("dice").src="https://upload.wikimedia.org/wikipedia/commons/c/cb/Die_face_3b.svg";
-			break;
-		case 4:
-			document.getElementById("dice").src="https://upload.wikimedia.org/wikipedia/commons/8/8e/Die_face_4r.svg";
-			break;
-		case 5:
-			document.getElementById("dice").src="https://upload.wikimedia.org/wikipedia/commons/9/99/Die_face_5b.svg";
-			break;
-		case 6:
-			document.getElementById("dice").src="https://upload.wikimedia.org/wikipedia/commons/e/eb/Die_face_6b.svg";
-			break;
-	}		
-}
-</script> 
+	// Record modal code
+	function showRecords() {
+		for (let i = 0; i < records.length; i++) {
+			var row = document.getElementById("recordTable").insertRow(i);
+			var cell1 = row.insertCell(0);
+			var cell2 = row.insertCell(1);
+			cell1.innerHTML = (i + 1);
+			cell2.innerHTML = records[i];
+		}	
+		document.getElementById("recordsModal").style.display = "block";
+	}
+	function closeRecords() {
+		var rowCount = document.getElementById("recordTable").rows.length;
+		for (let i = rowCount; i > 0; i--) {
+			document.getElementById("recordTable").deleteRow(i-1);
+		}
+		document.getElementById("recordsModal").style.display = "none";
+	}	
 
-<footer>
-  <p>Images 'borrowed' from pngimg.com and en.m.wikipedia.org</p>
-  <p>Site made by a bored cookie fairy...</p>
-</footer>
+	window.onclick = function(event) {
+	  if (event.target == document.getElementById("creditsModal")) {
+		document.getElementById("creditsModal").style.display = "none";
+	  } else if (event.target == document.getElementById("recordsModal")) {
+		var rowCount = document.getElementById("recordTable").rows.length;
+		for (let i = rowCount; i > 0; i--) {
+			document.getElementById("recordTable").deleteRow(i-1);
+		}
+		document.getElementById("recordsModal").style.display = "none";
+	  }
+	}
 
+	</script> 
+
+	<footer>
+		<div class="bottomButtons">
+			<button onclick="show6()">6 side die</button>
+			<button onclick="show12()">20 side die</button>
+		</div>
+		<div class="final">
+			<button onclick="showCredits()">Credits</button>
+			<button onclick="showRecords()">Record</button>
+		</div>	  
+	</footer>
+
+	<!-- Credits Modal -->
+	<div id="creditsModal" class="modal">
+		<!-- Modal content -->
+		<div class="modal-content">
+			<span class="close" onclick="closeCredits()">&times;</span>
+			<h3>Credits</h3>
+			<p>Images 'borrowed' from pngimg.com and en.m.wikipedia.org</p>
+			<p>Site made by a bored cookie fairy...</p>
+		</div>
+	</div>
+	
+	<!-- Records Modal -->
+	<div id="recordsModal" class="modal">
+		<!-- Modal content -->
+		<div class="modal-content">
+			<span class="close" onclick="closeRecords()">&times;</span>
+			<h3>Records</h3>
+			<p>Up to 10 values are saved, from new to old.</p>
+			<p>Note that if this site is refreshed, the values will be reset.</p>
+			<table id="recordTable">
+			</table>
+		</div>
+	</div>
+	
 </body>
 </html> 
