@@ -70,7 +70,10 @@
 		  font-size: 14px;
 		}
 		
-		
+		.slidecontainer {
+		  width: 100%;
+		}
+
 		
 		/* Responsive design attempt*/
 		@media screen and (max-width: 320px) {
@@ -167,6 +170,49 @@
 			src="https://pngimg.com/uploads/dice/dice_PNG49.png"></input>
 		</div>			
 	</section>
+	
+	<!-- Credits Modal -->
+	<div id="creditsModal" class="modal">
+		<!-- Modal content -->
+		<div class="modal-content">
+			<span class="close" onclick="closeCredits()">&times;</span>
+			<h3>Credits</h3>
+			<p>20 Die Face images kindly provided by Mayuzane @ </p> 
+			<a href="https://www.patreon.com/mayuzane">https://www.patreon.com/mayuzane</a>
+			<br/>
+			<p>20 Die image and 6 Die Face images 'borrowed' from en.m.wikipedia.org</p>
+			<p>6 Die image 'borrowed' from pngimg.com, en.m.wikipedia.org</p>
+			<p>Die roll anim gif 'borrowed' from tenor.com</p>
+			<p>Site made by a bored cookie fairy...</p>
+		</div>
+	</div>
+	
+	<!-- Records Modal -->
+	<div id="recordsModal" class="modal">
+		<!-- Modal content -->
+		<div class="modal-content">
+			<span class="close" onclick="closeRecords()">&times;</span>
+			<h3>Records</h3>
+			<p>Up to 10 values are saved, from new to old.</p>
+			<p>Note that if this site is refreshed, the values will be reset.</p>
+			<table id="recordTable">
+			</table>
+		</div>
+	</div>
+	
+	<!-- Settings Modal -->
+	<div id="settingsModal" class="modal">
+		<!-- Modal content -->
+		<div class="modal-content">
+			<span class="close" onclick="closeCredits()">&times;</span>
+			<h3>Settings</h3>
+			<div class="slidecontainer">
+				<p>Animation time</p>
+				<input type="range" min="100" max="10000" step="10" id="animSlider" oninput="sliderChange()" />
+				<div id="animOutput"></div>
+			</div>
+		</div>
+	</div>
 
 	<script>
 	let dieNum = 6;
@@ -176,13 +222,15 @@
 	  return new Promise((resolve) => setTimeout(resolve, time));
 	}
 	
+	let timeRoll = 500;
+	
 	function roll() {	
 		if (dieNum == 6) {
 			console.log("6 sided die used");
 			document.getElementById('text').innerHTML = "Rolling...";
 			document.getElementById("dice").src="images/dice-game.gif";
 			document.getElementById("dice").disabled = true;
-			sleep(500).then(() => {
+			sleep(timeRoll).then(() => {
 				roll6();
 			});		
 		} else if (dieNum == 20) {
@@ -190,7 +238,7 @@
 			document.getElementById('text').innerHTML = "Rolling...";
 			document.getElementById("dice").src="images/dice-game.gif";
 			document.getElementById("dice").disabled = true;
-			sleep(500).then(() => {
+			sleep(timeRoll).then(() => {
 				roll20();
 			});		
 		} else {
@@ -338,6 +386,15 @@
 		}
 		document.getElementById("recordsModal").style.display = "none";
 	}	
+	
+	function showSettings() {
+			document.getElementById("settingsModal").style.display = "block";
+			document.getElementById("animSlider").value = timeRoll;
+			document.getElementById("animOutput").innerHTML = timeRoll;
+		}
+		function closeCredits() {
+			document.getElementById("settingsModal").style.display = "none";
+	}
 
 	window.onclick = function(event) {
 	  if (event.target == document.getElementById("creditsModal")) {
@@ -348,9 +405,16 @@
 			document.getElementById("recordTable").deleteRow(i-1);
 		}
 		document.getElementById("recordsModal").style.display = "none";
+	  } else if (event.target == document.getElementById("settingsModal")) {
+		document.getElementById("settingsModal").style.display = "none";
 	  }
+	}	
+	
+	function sliderChange() {
+		timeRoll = document.getElementById("animSlider").value;
+		document.getElementById("animOutput").innerHTML = timeRoll;
 	}
-
+	
 	</script> 
 
 	<footer>
@@ -361,37 +425,9 @@
 		<div class="final">
 			<button onclick="showCredits()">Credits</button>
 			<button onclick="showRecords()">Record</button>
+			<button onclick="showSettings()">Settings</button>
 		</div>	  
 	</footer>
-
-	<!-- Credits Modal -->
-	<div id="creditsModal" class="modal">
-		<!-- Modal content -->
-		<div class="modal-content">
-			<span class="close" onclick="closeCredits()">&times;</span>
-			<h3>Credits</h3>
-			<p>20 Die Face images kindly provided by Mayuzane @ </p> 
-			<a href="https://www.patreon.com/mayuzane">https://www.patreon.com/mayuzane</a>
-			<br/>
-			<p>20 Die image and 6 Die Face images 'borrowed' from en.m.wikipedia.org</p>
-			<p>6 Die image 'borrowed' from pngimg.com, en.m.wikipedia.org</p>
-			<p>Die roll anim gif 'borrowed' from tenor.com</p>
-			<p>Site made by a bored cookie fairy...</p>
-		</div>
-	</div>
-	
-	<!-- Records Modal -->
-	<div id="recordsModal" class="modal">
-		<!-- Modal content -->
-		<div class="modal-content">
-			<span class="close" onclick="closeRecords()">&times;</span>
-			<h3>Records</h3>
-			<p>Up to 10 values are saved, from new to old.</p>
-			<p>Note that if this site is refreshed, the values will be reset.</p>
-			<table id="recordTable">
-			</table>
-		</div>
-	</div>
 	
 </body>
 </html> 
