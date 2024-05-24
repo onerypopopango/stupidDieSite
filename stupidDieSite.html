@@ -9,7 +9,6 @@
 		  background-color: #666;
 		  padding: 30px;
 		  text-align: center;
-		  font-size: 35px;
 		  color: white;
 		}
 		
@@ -71,25 +70,49 @@
 		  font-size: 14px;
 		}
 		
-		@media screen and (min-width: 601px) {
-		  div.writeup {
-			font-size: 20px;
-			text-align: center;
-		  }
-		}
 		
-		/* Responsive layout - makes the menu and the content (inside the section) sit on top of each other instead of next to each other */
-		@media screen and (max-width: 600px) {
+		
+		/* Responsive design attempt*/
+		@media screen and (max-width: 320px) {
+		  header {
+			font-size: 20px;
+		  }
+		
 		  section {
 			-webkit-flex-direction: column;
 			flex-direction: column;
 		  }
 		  
 		  div.writeup {
+			font-size: 20px;  
+			text-align: center;
+		  }	
+
+		}
+		
+		@media screen and (min-width: 321px) {
+		  header {
+			font-size: 35px;
+		  }		
+		  section {
+			-webkit-flex-direction: column;
+			flex-direction: column;
+		  }		  
+		  div.writeup {
 			font-size: 50px;  
 			text-align: center;
 		  }	
 
+		}
+		
+		@media screen and (min-width: 601px) {
+		  header {
+			font-size: 35px;
+		  }
+		  div.writeup {
+			font-size: 20px;
+			text-align: center;
+		  }
 		}
 		
 		/* The Modal (background) */
@@ -148,10 +171,36 @@
 	<script>
 	let dieNum = 6;
 	const records = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]; 
-
+	
+	function sleep (time) {
+	  return new Promise((resolve) => setTimeout(resolve, time));
+	}
+	
 	function roll() {	
 		if (dieNum == 6) {
-			let dieValue = Math.floor(Math.random() * (6 - 1 + 1) + 1);
+			console.log("6 sided die used");
+			document.getElementById('text').innerHTML = "Rolling...";
+			document.getElementById("dice").src="images/dice-game.gif";
+			document.getElementById("dice").disabled = true;
+			sleep(500).then(() => {
+				roll6();
+			});		
+		} else if (dieNum == 20) {
+			console.log("20 sided die used");
+			document.getElementById('text').innerHTML = "Rolling...";
+			document.getElementById("dice").src="images/dice-game.gif";
+			document.getElementById("dice").disabled = true;
+			sleep(500).then(() => {
+				roll20();
+			});		
+		} else {
+			document.getElementById('text').innerHTML = "There seems to be an error, roll again.";
+		}
+	}
+	
+	function roll6() {
+		console.log("Rolling 6");
+		let dieValue = Math.floor(Math.random() * (6 - 1 + 1) + 1);
 			document.getElementById('text').innerHTML = "You rolled: " + dieValue;
 			records.unshift(dieValue);
 			records.pop();
@@ -175,9 +224,19 @@
 				case 6:
 					document.getElementById("dice").src="images/diceSix.svg";
 					break;
-			}	
-		} else if (dieNum == 12) {
-			let dieValue = Math.floor(Math.random() * (20 - 1 + 1) + 1);
+			}
+		document.getElementById("dice").disabled = false;
+	}
+
+	function show6() {
+		document.getElementById("dice").src="https://pngimg.com/uploads/dice/dice_PNG49.png";
+		document.getElementById('text').innerHTML = "Roll the die.";
+		dieNum = 6;
+	}
+	
+	function roll20() {
+		console.log("Rolling 12");
+		let dieValue = Math.floor(Math.random() * (20 - 1 + 1) + 1);
 			document.getElementById('text').innerHTML = "You rolled: " + dieValue;
 			records.unshift(dieValue);
 			records.pop();
@@ -243,22 +302,14 @@
 				case 20:
 					document.getElementById("dice").src="images/20240523-d20d20.jpg";
 					break;
-			}	
-		} else {
-			document.getElementById('text').innerHTML = "There seems to be an error, roll again.";
-		}
+			}
+		document.getElementById("dice").disabled = false;	
 	}
 
-	function show6() {
-		document.getElementById("dice").src="https://pngimg.com/uploads/dice/dice_PNG49.png";
-		document.getElementById('text').innerHTML = "Roll the die.";
-		dieNum = 6;
-	}
-
-	function show12() {
+	function show20() {
 		document.getElementById("dice").src="images/Twenty-Sided-Dice.svg";
 		document.getElementById('text').innerHTML = "Roll the die.";
-		dieNum = 12;
+		dieNum = 20;
 	}
 
 	// Credit modal code
@@ -305,7 +356,7 @@
 	<footer>
 		<div class="bottomButtons">
 			<button onclick="show6()">6 side die</button>
-			<button onclick="show12()">20 side die</button>
+			<button onclick="show20()">20 side die</button>
 		</div>
 		<div class="final">
 			<button onclick="showCredits()">Credits</button>
