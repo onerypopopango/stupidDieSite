@@ -204,7 +204,7 @@
 	<div id="settingsModal" class="modal">
 		<!-- Modal content -->
 		<div class="modal-content">
-			<span class="close" onclick="closeCredits()">&times;</span>
+			<span class="close" onclick="closeSettings()">&times;</span>
 			<h3>Settings</h3>
 			<div class="slidecontainer">
 				<p>Animation time</p>
@@ -388,12 +388,12 @@
 	}	
 	
 	function showSettings() {
-			document.getElementById("settingsModal").style.display = "block";
-			document.getElementById("animSlider").value = timeRoll;
-			document.getElementById("animOutput").innerHTML = (timeRoll/1000) + " seconds";
-		}
-		function closeCredits() {
-			document.getElementById("settingsModal").style.display = "none";
+		document.getElementById("settingsModal").style.display = "block";
+		document.getElementById("animSlider").value = timeRoll;
+		document.getElementById("animOutput").innerHTML = (timeRoll/1000) + " seconds";
+	}
+	function closeSettings() {
+		document.getElementById("settingsModal").style.display = "none";
 	}
 
 	window.onclick = function(event) {
