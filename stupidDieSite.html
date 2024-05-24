@@ -390,7 +390,7 @@
 	function showSettings() {
 			document.getElementById("settingsModal").style.display = "block";
 			document.getElementById("animSlider").value = timeRoll;
-			document.getElementById("animOutput").innerHTML = timeRoll;
+			document.getElementById("animOutput").innerHTML = (timeRoll/1000) + " seconds";
 		}
 		function closeCredits() {
 			document.getElementById("settingsModal").style.display = "none";
@@ -412,7 +412,7 @@
 	
 	function sliderChange() {
 		timeRoll = document.getElementById("animSlider").value;
-		document.getElementById("animOutput").innerHTML = timeRoll;
+		document.getElementById("animOutput").innerHTML = (timeRoll/1000) + " seconds";
 	}
 	
 	</script> 
